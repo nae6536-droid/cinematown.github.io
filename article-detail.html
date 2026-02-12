@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情 | Article Detail</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-family: serif;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #222;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid rgba(128, 128, 128, 0.5);
+            padding-bottom: 10px;
+        }
+        
+        .article-detail {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .article-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: rgba(240, 240, 240, 0.7);
+            border-radius: 8px;
+        }
+        
+        .meta-item {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .article-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .article-tag {
+            background-color: rgba(128, 128, 128, 0.2);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 40px;
+        }
+        
+        .article-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: rgba(128, 128, 128, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 25px;
+            color: #333;
+            font-family: serif;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: rgba(128, 128, 128, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(128, 128, 128, 0.4);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: rgba(128, 128, 128, 0.3);
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 20px;
+            color: #333;
+            text-decoration: none;
+            font-family: serif;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: rgba(128, 128, 128, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 80px;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 80px;
+            color: #993333;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .article-title {
+                font-size: 1.5rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .article-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="nav-btn" onclick="window.location.href='page2.html#past-events'">过往活动 Past Events</button>
+            <button class="nav-btn" onclick="window.location.href='page2.html#interviews'">采访/映后 Interviews&QAs</button>
+            <button class="nav-btn" onclick="window.location.href='articles.html'">搜索 Search</button>
+            <button class="nav-btn" onclick="window.location.href='page2.html#about'">关于我们 About Us</button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div style="margin-bottom: 40px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 20px;">
+            <img src="logo.svg" alt="Cinema Town" width="100">
+            <h1 style="margin: 0;">文章详情 | Article Detail</h1>
+        </div>
+        
+        <section class="section">
+            <div id="articleDetail">
+                <!-- 文章详情将通过JavaScript动态生成 -->
+                <div class="loading">加载中... Loading...</div>
+            </div>
+        </section>
+        
+        <div style="text-align: center;">
+            <a href="articles.html" class="back-btn">返回文章列表 Back to Articles</a>
+        </div>
+    </div>
+    
+    <script>
+        // 获取URL参数中的文章ID
+        function getArticleId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+        
+        // 加载文章详情
+        async function loadArticleDetail() {
+            const articleId = getArticleId();
+            const articleDetailElement = document.getElementById('articleDetail');
+            
+            if (!articleId) {
+                articleDetailElement.innerHTML = '<div class="error">未找到文章ID。</div>';
+                return;
+            }
+            
+            try {
+                const response = await fetch('data/articles.json');
+                const data = await response.json();
+                const article = data.articles.find(a => a.id === articleId);
+                
+                if (!article) {
+                    articleDetailElement.innerHTML = '<div class="error">未找到该文章。</div>';
+                    return;
+                }
+                
+                // 渲染文章详情
+                articleDetailElement.innerHTML = `
+                    <div class="article-detail">
+                        <h2 class="article-title">${article.title}</h2>
+                        
+                        <div class="article-meta">
+                            <div class="meta-item">发布时间：${article.publish_date}</div>
+                        </div>
+                        
+                        <div class="article-tags">
+                            ${article.tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+                        </div>
+                        
+                        <div class="article-content">${article.content}</div>
+                        
+                        <div class="article-actions">
+                            <a href="${article.original_url}" class="btn" target="_blank">查看原文链接 View Original</a>
+                            <a href="articles.html" class="btn">返回文章列表 Back to List</a>
+                        </div>
+                    </div>
+                `;
+                
+                // 更新页面标题
+                document.title = `${article.title} | Article Detail`;
+                
+            } catch (error) {
+                console.error('加载文章详情失败:', error);
+                articleDetailElement.innerHTML = '<div class="error">加载文章详情失败，请稍后重试。</div>';
+            }
+        }
+        
+        // 页面加载完成后加载文章详情
+        window.addEventListener('DOMContentLoaded', loadArticleDetail);
+    </script>
+</body>
+</html>

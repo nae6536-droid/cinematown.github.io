@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名言 - 波德莱尔</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+            padding: 20px;
+        }
+        
+        .quote-container {
+            text-align: center;
+            max-width: 800px;
+            padding: 80px 60px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quote-content {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .quote-author {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .quote-original {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #444;
+        }
+        
+        .quote-work {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        .btn-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: rgba(128, 128, 128, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 25px;
+            color: #333;
+            font-family: serif;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: rgba(128, 128, 128, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(128, 128, 128, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .quote-container {
+                padding: 40px 20px;
+            }
+            
+            .quote-content {
+                font-size: 1.4rem;
+            }
+            
+            .quote-original {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 40px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 20px;">
+        <img src="logo.svg" alt="Cinema Town" width="100">
+        <h1 style="margin: 0; font-size: 2rem;">电子纸镇 CinemaTown</h1>
+    </div>
+    <div class="quote-container">
+        <div class="quote-content">
+            来吧，跟我梦游，超过一切可能，超越所有已知。
+        </div>
+        <div class="quote-original">
+            Viens! oh! viens voyager dans les rêves, <br>
+            Au delà du possible, au delà du connu!
+        </div>
+        <div class="quote-author">
+            《声音》波德莱尔
+        </div>
+        <div class="quote-work">
+            La Voix by Charles Baudelaire
+        </div>
+    </div>
+    <div class="btn-container">
+        <a href="page2.html" class="btn">进入电子纸镇</a>
+    </div>
+</body>
+</html>

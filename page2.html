@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子纸镇</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-family: serif;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #222;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid rgba(128, 128, 128, 0.5);
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+            color: #444;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .event-card {
+            background-color: rgba(240, 240, 240, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid rgba(128, 128, 128, 0.5);
+        }
+        
+        .event-date {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: rgba(128, 128, 128, 0.3);
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 20px;
+            color: #333;
+            text-decoration: none;
+            font-family: serif;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: rgba(128, 128, 128, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: rgba(128, 128, 128, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(128, 128, 128, 0.5);
+            border-radius: 25px;
+            color: #333;
+            font-family: serif;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: rgba(128, 128, 128, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(128, 128, 128, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="nav-btn" onclick="scrollToSection('past-events')">过往活动 Past Events</button>
+            <button class="nav-btn" onclick="scrollToSection('interviews')">采访/映后 Interviews&QAs</button>
+            <button class="nav-btn" onclick="window.location.href='articles.html'">搜索 Search</button>
+            <button class="nav-btn" onclick="scrollToSection('about')">关于我们 About Us</button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div style="margin-bottom: 40px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 20px;">
+            <img src="logo.svg" alt="Cinema Town" width="100">
+            <h1 style="margin: 0;">电子纸镇 CinemaTown</h1>
+        </div>
+        
+        <section id="past-events" class="section">
+            <h2>过往活动 Past Events</h2>
+            
+            <!-- 公众号文章将通过JavaScript动态生成 -->
+            <div id="past-events-articles">
+                <!-- 文章列表将通过JavaScript动态生成 -->
+            </div>
+            
+        <div style="margin-top: 30px; text-align: center;">
+                <a href="articles.html?tag=过往活动" class="btn">更多 More...</a>
+            </div>
+        </section>
+        
+        <section id="interviews" class="section">
+            <h2>采访/映后 Interviews&QAs</h2>
+            
+            <!-- 公众号文章将通过JavaScript动态生成 -->
+            <div id="interviews-articles">
+                <!-- 文章列表将通过JavaScript动态生成 -->
+            </div>
+            
+        <div style="margin-top: 30px; text-align: center;">
+                <a href="articles.html?tag=采访/映后" class="btn">更多 More...</a>
+            </div>
+        </section>
+        
+        <section id="about" class="section">
+            <h2>关于我们 About Us</h2>
+            
+            <p>电子纸镇 Cinematown 是一个常驻中国杭州的独立放映组织，致力于在当代语境中探索影像的观看与讨论方式。我们以 小规模、手工策划 的方式组织每月1-2场放映，内容涵盖纪录片、实验影像、艺术短片等多种形式。</p>
+            
+            <p>我们采用 游牧式放映 策略，在杭州不同文化空间中流动播映。所有作品均获得导演授权，强调创作者的表达权与影像本身的完整性。我们支持独立影像，希望建立一个观众与作品、创作者之间平等、开放的交流现场。</p>
+            
+            <p>电子纸镇不是一家固定影院，而是一块移动银幕，一座在城市中不断临时搭建的小型影像小镇。</p>
+            
+            <p style="margin-top: 40px;">Cinematown is a small-scale independent screening collective based in Hangzhou, China, dedicated to exploring how moving images are watched and discussed in contemporary contexts.</p>
+            
+            <p>We curate 1–2 carefully programmed screenings each month, focusing on documentaries, experimental films, and artist videos.</p>
+            
+            <p>As a nomadic and small-scale project, we move across diverse cultural venues in the city. All works are screened with permission from the filmmakers, emphasizing the integrity of authorship and the spirit of independent cinema.</p>
+            
+            <p>We aim to create a modest but open space for equal dialogue between audiences and moving images.</p>
+            
+            <p>Cinematown is not a fixed cinema, but a traveling screen — a temporary town quietly built around films.</p>
+            
+            <h3 style="margin-top: 40px;">联系我们 Contact Us</h3>
+            <p>Tv: <a href="mailto:tianx8557@gmail.com" style="text-decoration: none; color: #333; border-bottom: 1px solid #999;">tianx8557@gmail.com</a></p>
+            <p>echo: <a href="mailto:xiyufan_echo@163.com" style="text-decoration: none; color: #333; border-bottom: 1px solid #999;">xiyufan_echo@163.com</a></p>
+            <p>Nae: <a href="mailto:nae6536@gmail.com" style="text-decoration: none; color: #333; border-bottom: 1px solid #999;">nae6536@gmail.com</a></p>
+        </section>
+        
+        <div style="text-align: center;">
+            <a href="index.html" class="back-btn">返回 Back</a>
+        </div>
+    </div>
+    
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // 加载文章数据
+        async function loadArticles() {
+            try {
+                const response = await fetch('data/articles.json');
+                const data = await response.json();
+                let articles = data.articles;
+                
+                // 按发布时间倒序排序
+                articles.sort((a, b) => new Date(b.publish_date) - new Date(a.publish_date));
+                
+                // 渲染过往活动文章
+                renderArticlesByTag(articles, '过往活动', 'past-events-articles');
+                
+                // 渲染采访/映后文章
+                renderArticlesByTag(articles, '采访/映后', 'interviews-articles');
+                
+            } catch (error) {
+                console.error('加载文章失败:', error);
+            }
+        }
+        
+        // 根据标签渲染文章
+        function renderArticlesByTag(articles, tag, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            // 筛选对应标签的文章
+            const filteredArticles = articles.filter(article => 
+                article.tags.includes(tag)
+            );
+            
+            // 只显示最新的3篇文章
+            const recentArticles = filteredArticles.slice(0, 3);
+            
+            if (recentArticles.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; margin: 20px 0;">暂无相关文章</p>';
+                return;
+            }
+            
+            // 渲染文章列表
+            const articlesHTML = recentArticles.map(article => `
+                <div class="event-card" style="margin-top: 20px;">
+                    <div class="event-date">${article.publish_date}</div>
+                    <h3><a href="${article.original_url}" target="_blank" style="text-decoration: none; color: #333;">${article.title}</a></h3>
+                </div>
+            `).join('');
+            
+            container.innerHTML = articlesHTML;
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', loadArticles);
+    </script>
+</body>
+</html>
